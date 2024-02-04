@@ -1,15 +1,6 @@
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Button } from "./components/ui/button";
-import { ModeToggle } from "./components/ui/mode-toggle";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/root";
 
 export function App() {
-	return (
-		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-			<div>
-				<h1>Hello Wipeum!</h1>
-				<Button variant="default">Butão</Button>
-				<ModeToggle />
-			</div>
-		</ThemeProvider>
-	);
+	return <RouterProvider router={router} />;
 }
