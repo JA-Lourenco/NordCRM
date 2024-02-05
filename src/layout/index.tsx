@@ -19,7 +19,11 @@ import {
 	Users,
 } from "lucide-react";
 
-export function Layout() {
+interface LayoutProps {
+	pageName: string;
+}
+
+export function Layout({ pageName }: LayoutProps) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
 	const menuItems = [
@@ -83,7 +87,7 @@ export function Layout() {
 
 			<main className="w-full pt-10 pr-5">
 				<div className="w-full flex items-center justify-between">
-					<h1 className="text-3xl font-bold">INÍCIO</h1>
+					<h1 className="text-3xl font-bold">{pageName.toUpperCase()}</h1>
 
 					<div className="flex items-center gap-5">
 						<h3>Bem Vindo (a), Bruna!</h3>
