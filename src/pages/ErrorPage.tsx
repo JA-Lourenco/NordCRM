@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export function ErrorPage() {
@@ -7,7 +7,9 @@ export function ErrorPage() {
 	return (
 		<>
 			<div>Ops! We do not found that page.</div>
-			<Button variant="destructive">Back</Button>
+			<Link to="/home">
+				<Button variant="destructive">Back</Button>
+			</Link>
 		</>
 	);
 }

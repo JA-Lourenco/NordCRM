@@ -68,13 +68,13 @@ export function Panel() {
 				<PanelSelect />
 			</div>
 
-			<section className="h-full flex items-center justify-between mt-10">
-				<section className="h-96">
-					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md">
+			<section className="h-[700px] flex items-start justify-center gap-x-52 mt-16">
+				<section className="h-full">
+					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-yellow-500">
 						Qualificação
 					</h3>
 
-					<ScrollArea className="h-full w-96 p-5 border-2 rounded-b-md">
+					<ScrollArea className="h-full w-96 p-5 border-2 border-yellow-500 border-t-0 rounded-b-md">
 						{panels.map(({ id, name }) => (
 							<div key={id}>{name}</div>
 						))}
@@ -123,12 +123,12 @@ export function Panel() {
 					</ScrollArea>
 				</section>
 
-				<section className="h-96">
-					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md">
+				<section className="h-full">
+					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-green-500">
 						Negociação
 					</h3>
 
-					<ScrollArea className="h-full w-96 p-5 border-2 rounded-b-md">
+					<ScrollArea className="h-full w-96 p-5 border-2 border-green-500 border-t-0 rounded-b-md">
 						{panels.map(({ id, name }) => (
 							<div key={id}>{name}</div>
 						))}
@@ -177,12 +177,12 @@ export function Panel() {
 					</ScrollArea>
 				</section>
 
-				<section className="h-96">
-					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md">
+				<section className="h-full">
+					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-blue-500">
 						Finalizado
 					</h3>
 
-					<ScrollArea className="h-full w-96 p-5 border-2 rounded-b-md">
+					<ScrollArea className="h-full w-96 p-5 border-2 border-blue-500 border-t-0 rounded-b-md">
 						{panels.map(({ id, name }) => (
 							<div key={id}>{name}</div>
 						))}
