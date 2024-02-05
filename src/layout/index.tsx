@@ -23,13 +23,13 @@ export function Layout() {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
 	const menuItems = [
-		{ name: "Início", icon: <Home /> },
-		{ name: "Painel de Leads", icon: <Columns3 /> },
-		{ name: "Clientes", icon: <Users /> },
-		{ name: "Produtos", icon: <Box /> },
-		{ name: "Equipe", icon: <Handshake /> },
-		{ name: "Usuários", icon: <UserCog /> },
-		{ name: "Sair", icon: <LogOut /> },
+		{ name: "Início", icon: <Home />, path: "/home" },
+		{ name: "Painel de Leads", icon: <Columns3 />, path: "/panel" },
+		{ name: "Clientes", icon: <Users />, path: "/clients" },
+		{ name: "Produtos", icon: <Box />, path: "/products" },
+		{ name: "Equipe", icon: <Handshake />, path: "/teams" },
+		{ name: "Usuários", icon: <UserCog />, path: "/users" },
+		{ name: "Sair", icon: <LogOut />, path: "/" },
 	];
 
 	function handleSidebar() {
@@ -41,8 +41,8 @@ export function Layout() {
 			<aside className="border-r-2 px-2 flex flex-col gap-2 w-52 relative">
 				<h2 className="text-2xl font-bold text-center my-10">Nord CRM</h2>
 
-				{menuItems.map(({ name, icon }, index) => (
-					<Link to="" key={index} className="">
+				{menuItems.map(({ name, icon, path }, index) => (
+					<Link to={path} key={index}>
 						<Button className="gap-2" variant="ghost">
 							{icon}
 							{name}
@@ -50,7 +50,7 @@ export function Layout() {
 					</Link>
 				))}
 
-				<div className="absolute bottom-5 right-1">
+				<div className="absolute bottom-5 right-2">
 					<Button variant="ghost" size={"sm"} onClick={() => handleSidebar()}>
 						<ArrowLeftToLine />
 					</Button>
@@ -60,9 +60,9 @@ export function Layout() {
 			<aside className="border-r-2 px-2 flex flex-col items-center gap-2 w-15 relative">
 				<h2 className="text-2xl font-bold text-center my-10">NR</h2>
 
-				{menuItems.map(({ icon }, index) => (
-					<Link to="" key={index} className="">
-						<Button className="" variant="ghost" size={"sm"}>
+				{menuItems.map(({ icon, path }, index) => (
+					<Link to={path} key={index}>
+						<Button variant="ghost" size={"sm"}>
 							{icon}
 						</Button>
 					</Link>
