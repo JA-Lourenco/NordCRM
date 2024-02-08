@@ -32,7 +32,7 @@ export function Layout({ pageName }: LayoutProps) {
     { name: "Clientes", icon: <Users />, path: "/customer" },
     { name: "Produtos", icon: <Box />, path: "/product" },
     { name: "Equipe", icon: <Handshake />, path: "/team" },
-    { name: "Usuários", icon: <UserCog />, path: "/users" },
+    { name: "Usuários", icon: <UserCog />, path: "/user" },
     { name: "Sair", icon: <LogOut />, path: "/" },
   ];
 

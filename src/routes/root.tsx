@@ -9,6 +9,7 @@ import { Team } from "@/pages/Team";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
+import { User } from "@/pages/User";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,16 @@ export const router = createBrowserRouter([
       {
         path: "/team",
         element: <Team />,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    element: <Layout pageName="USUÁRIOS" />,
+    children: [
+      {
+        path: "/user",
+        element: <User />,
       },
     ],
   },
