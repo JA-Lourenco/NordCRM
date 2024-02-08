@@ -29,7 +29,7 @@ export function Layout({ pageName }: LayoutProps) {
 	const menuItems = [
 		{ name: "Início", icon: <Home />, path: "/home" },
 		{ name: "Painel de Leads", icon: <Columns3 />, path: "/panel" },
-		{ name: "Clientes", icon: <Users />, path: "/clients" },
+		{ name: "Clientes", icon: <Users />, path: "/customer" },
 		{ name: "Produtos", icon: <Box />, path: "/products" },
 		{ name: "Equipe", icon: <Handshake />, path: "/teams" },
 		{ name: "Usuários", icon: <UserCog />, path: "/users" },
