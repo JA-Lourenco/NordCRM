@@ -6,12 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+import { Button } from "@/components/ui/button";
 
 import { Pencil, Plus, Search } from "lucide-react";
 
-export function Customer() {
+export function Product() {
   return (
     <>
       <section className="flex items-center justify-between mb-5">
@@ -31,18 +32,16 @@ export function Customer() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Nome</TableHead>
-            <TableHead>Telefone</TableHead>
-            <TableHead>Tipo Pessoa</TableHead>
+            <TableHead>Produto</TableHead>
+            <TableHead>Categoria</TableHead>
             <TableHead>Editar</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           <TableRow>
-            <TableCell>Ricardo Oliveira</TableCell>
-            <TableCell>38 985258525</TableCell>
-            <TableCell>PF</TableCell>
+            <TableCell>Equipamento 01</TableCell>
+            <TableCell>Equipamento</TableCell>
             <TableCell>
               <Button>
                 <Pencil />
@@ -51,9 +50,8 @@ export function Customer() {
           </TableRow>
 
           <TableRow>
-            <TableCell>Victor Ramos</TableCell>
-            <TableCell>12 996539653</TableCell>
-            <TableCell>PF</TableCell>
+            <TableCell>Solução 10</TableCell>
+            <TableCell>Químico</TableCell>
             <TableCell>
               <Button>
                 <Pencil />

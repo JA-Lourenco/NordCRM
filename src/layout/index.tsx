@@ -30,7 +30,7 @@ export function Layout({ pageName }: LayoutProps) {
 		{ name: "Início", icon: <Home />, path: "/home" },
 		{ name: "Painel de Leads", icon: <Columns3 />, path: "/panel" },
 		{ name: "Clientes", icon: <Users />, path: "/customer" },
-		{ name: "Produtos", icon: <Box />, path: "/products" },
+		{ name: "Produtos", icon: <Box />, path: "/product" },
 		{ name: "Equipe", icon: <Handshake />, path: "/teams" },
 		{ name: "Usuários", icon: <UserCog />, path: "/users" },
 		{ name: "Sair", icon: <LogOut />, path: "/" },

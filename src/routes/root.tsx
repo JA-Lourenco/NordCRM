@@ -4,6 +4,7 @@ import { Login } from "@/pages/Login";
 import { Home } from "@/pages/Home";
 import { Panel } from "@/pages/Panel";
 import { Customer } from "@/pages/Customer";
+import { Product } from "@/pages/Product";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
@@ -36,6 +37,16 @@ export const router = createBrowserRouter([
 			{
 				path: "/customer",
 				element: <Customer />,
+			},
+		],
+	},
+	{
+		path: "/product",
+		element: <Layout pageName="PRODUTOS" />,
+		children: [
+			{
+				path: "/product",
+				element: <Product />,
 			},
 		],
 	},
