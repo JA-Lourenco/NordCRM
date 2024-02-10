@@ -7,6 +7,7 @@ import { Customers } from "@/pages/Customers";
 import { Products } from "@/pages/Products";
 import { Teams } from "@/pages/Teams";
 import { Users } from "@/pages/Users";
+import { CustomerDetails } from "@/pages/CustomerDetails";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/customers/:id",
-				element: <h1>TESTE CLIENTES</h1>,
+				element: <CustomerDetails />,
 			},
 		],
 	},
