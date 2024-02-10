@@ -27,7 +27,7 @@ import { ModalForm } from "@/components/ModalForm";
 
 import { ExternalLink, Plus, Smartphone, User } from "lucide-react";
 
-export function Panel() {
+export function LeadsPanel() {
 	const leads = [
 		{
 			idLead: "#3480",

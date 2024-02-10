@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { Login } from "@/pages/Login";
 import { Home } from "@/pages/Home";
-import { Panel } from "@/pages/Panel";
+import { LeadsPanel } from "@/pages/LeadsPanel";
 import { Customers } from "@/pages/Customers";
 import { Products } from "@/pages/Products";
 import { Teams } from "@/pages/Teams";
@@ -24,12 +24,12 @@ export const router = createBrowserRouter([
 		],
 	},
 	{
-		path: "/panel",
+		path: "/leadspanel",
 		element: <Layout pageName="PAINEL DE LEADS" />,
 		children: [
 			{
-				path: "/panel",
-				element: <Panel />,
+				path: "/leadspanel",
+				element: <LeadsPanel />,
 			},
 		],
 	},

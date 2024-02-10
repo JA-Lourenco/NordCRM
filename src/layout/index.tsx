@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
 import {
+	AlignStartHorizontal,
 	ArrowLeftToLine,
 	ArrowRightToLine,
 	Box,
@@ -28,10 +29,15 @@ export function Layout({ pageName }: LayoutProps) {
 
 	const menuItems = [
 		{ name: "Início", icon: <Home />, path: "/home" },
-		{ name: "Painel de Leads", icon: <Columns3 />, path: "/panel" },
+		{
+			name: "Painel de Leads",
+			icon: <AlignStartHorizontal />,
+			path: "/leadspanel",
+		},
 		{ name: "Clientes", icon: <Users />, path: "/customers" },
 		{ name: "Produtos", icon: <Box />, path: "/products" },
-		{ name: "Equipe", icon: <Handshake />, path: "/teams" },
+		{ name: "Equipes", icon: <Handshake />, path: "/teams" },
+		{ name: "Painéis", icon: <Columns3 />, path: "/panels" },
 		{ name: "Usuários", icon: <UserCog />, path: "/users" },
 		{ name: "Sair", icon: <LogOut />, path: "/" },
 	];
