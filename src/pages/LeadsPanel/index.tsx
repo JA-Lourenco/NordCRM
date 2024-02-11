@@ -117,7 +117,7 @@ export function LeadsPanel() {
 
 	return (
 		<>
-			<div className="flex items-center justify-between">
+			<section className="flex items-center gap-x-5">
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button>
@@ -131,10 +131,10 @@ export function LeadsPanel() {
 				</Dialog>
 
 				<PanelSelect />
-			</div>
+			</section>
 
-			<section className="h-[700px] flex items-start justify-center gap-x-52 mt-16">
-				<section className="h-full">
+			<section className="h-[650px] flex items-start justify-start gap-x-10 my-4 py-5">
+				<div className="h-[95%]">
 					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-yellow-500">
 						Qualificação
 					</h3>
@@ -142,9 +142,9 @@ export function LeadsPanel() {
 					<ScrollArea className="h-full w-96 p-5 border-2 border-yellow-500 border-t-0 rounded-b-md">
 						<LeadGenerator />
 					</ScrollArea>
-				</section>
+				</div>
 
-				<section className="h-full">
+				<div className="h-[95%]">
 					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-green-500">
 						Negociação
 					</h3>
@@ -152,9 +152,9 @@ export function LeadsPanel() {
 					<ScrollArea className="h-full w-96 p-5 border-2 border-green-500 border-t-0 rounded-b-md">
 						<LeadGenerator />
 					</ScrollArea>
-				</section>
+				</div>
 
-				<section className="h-full">
+				<div className="h-[95%]">
 					<h3 className="text-3xl text-center p-3 text-white bg-slate-800 rounded-t-md border-2 border-blue-500">
 						Finalizado
 					</h3>
@@ -162,7 +162,7 @@ export function LeadsPanel() {
 					<ScrollArea className="h-full w-96 p-5 border-2 border-blue-500 border-t-0 rounded-b-md">
 						<LeadGenerator />
 					</ScrollArea>
-				</section>
+				</div>
 			</section>
 		</>
 	);

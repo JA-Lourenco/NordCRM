@@ -91,7 +91,7 @@ export function Layout({ pageName }: LayoutProps) {
 		<div className="h-dvh flex gap-x-10">
 			<Sidebar />
 
-			<main className="w-full pt-10 pr-5">
+			<main className="w-full pt-10 pr-10">
 				<div className="w-full flex items-center justify-between">
 					<h1 className="text-3xl font-bold">{pageName.toUpperCase()}</h1>
 
