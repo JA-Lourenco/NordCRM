@@ -6,6 +6,7 @@ import { LeadsPanel } from "@/pages/LeadsPanel";
 import { Customers } from "@/pages/Customers";
 import { Products } from "@/pages/Products";
 import { Teams } from "@/pages/Teams";
+import { Panels } from "@/pages/Panels";
 import { Users } from "@/pages/Users";
 import { CustomerDetails } from "@/pages/CustomerDetails";
 import { ErrorPage } from "@/pages/ErrorPage";
@@ -74,6 +75,21 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/teams/:id",
+				element: <h1>TESTE EQUIPE</h1>,
+			},
+		],
+	},
+	{
+		path: "/panels",
+		element: <Layout pageName="PAINÉIS" />,
+		children: [
+			{
+				index: true,
+				path: "/panels",
+				element: <Panels />,
+			},
+			{
+				path: "/panels/:id",
 				element: <h1>TESTE EQUIPE</h1>,
 			},
 		],
