@@ -1,5 +1,8 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/Modal";
 import { DialogClose } from "@/components/ui/dialog";
@@ -22,23 +25,44 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CornerDownLeft, Save, UserX } from "lucide-react";
 
-const customerFormSchema = z.object({
-	fullname: z.string(),
-	personType: z.string(),
-	cpfcnpj: z.string(),
-	phone: z.string(),
-	email: z.string(),
-	birthDate: z.date(),
+const productFormSchema = z.object({
+	name: z.string(),
+	supplier: z.string(),
+	category: z.string(),
+	description: z.string(),
 });
 
-type CustomerType = z.infer<typeof customerFormSchema>;
+type ProductType = z.infer<typeof productFormSchema>;
 
-export function CustomerDetails() {
-	const form = useForm<CustomerType>();
+export function ProductDetails() {
+	const [products, setProducts] = useState([
+		{
+			id: "1",
+			name: "Lab Equipment A",
+			supplier: "Supplier X",
+			description: "High precision lab equipment for various experiments.",
+			category: "Equipment",
+		},
+		{
+			id: "2",
+			name: "Lab Chemical B",
+			supplier: "Supplier Y",
+			description: "Chemical reagent for laboratory use.",
+			category: "Chemical",
+		},
+		{
+			id: "3",
+			name: "Lab Glassware C",
+			supplier: "Supplier Z",
+			description: "Various glassware items for laboratory experiments.",
+			category: "Glassware",
+		},
+	]);
+	const form = useForm<ProductType>();
 	const { register, handleSubmit } = form;
 
-	function submit(data: CustomerType) {
-		console.log("customer", data);
+	function submit(data: ProductType) {
+		console.log("product", data);
 	}
 
 	function RemoveModalFooter() {
@@ -64,17 +88,17 @@ export function CustomerDetails() {
 				className="grid grid-cols-2 grid-rows-3 gap-5 w-2/6"
 			>
 				<div className="col-span-2">
-					<Label htmlFor="fullname">Nome Completo</Label>
-					<Input id="fullname" type="text" {...register("fullname")} />
+					<Label htmlFor="name">Nome do Produto</Label>
+					<Input id="name" type="text" {...register("name")} />
 				</div>
 
 				<div className="col-span-1">
 					<FormField
 						control={form.control}
-						name="personType"
+						name="category"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Tipo Pessoa</FormLabel>
+								<FormLabel>Categoria</FormLabel>
 								<Select
 									onValueChange={field.onChange}
 									defaultValue={field.value}
@@ -84,9 +108,13 @@ export function CustomerDetails() {
 											<SelectValue placeholder="Selecione" />
 										</SelectTrigger>
 									</FormControl>
+
 									<SelectContent>
-										<SelectItem value="PF">Pessoa Física</SelectItem>
-										<SelectItem value="PJ">Pessoa Jurídica</SelectItem>
+										{products.map(({ id, name }) => (
+											<SelectItem key={id} value={name}>
+												{name}
+											</SelectItem>
+										))}
 									</SelectContent>
 								</Select>
 							</FormItem>
@@ -94,26 +122,14 @@ export function CustomerDetails() {
 					/>
 				</div>
 
-				<div className="col-span-1">
-					<Label htmlFor="phone">CPF/CNPJ</Label>
-					<Input id="cpfcnpj" type="text" {...register("cpfcnpj")} />
+				<div className="col-span-2">
+					<Label htmlFor="phone">Fornecedor</Label>
+					<Input id="supplier" type="text" {...register("supplier")} />
 				</div>
 
-				<div className="col-span-1">
-					<Label htmlFor="email">Data de Nascimento</Label>
-					<Input id="birthDate" type="date" {...register("birthDate")} />
-				</div>
-
-				<div className="col-span-1" />
-
-				<div className="col-span-1">
-					<Label htmlFor="phone">Telefone</Label>
-					<Input id="phone" type="text" {...register("phone")} />
-				</div>
-
-				<div className="col-span-1">
-					<Label htmlFor="email">E-mail</Label>
-					<Input id="email" type="text" {...register("email")} />
+				<div className="col-span-2">
+					<Label htmlFor="email">Descrição</Label>
+					<Textarea id="description" {...register("description")} />
 				</div>
 
 				<Modal

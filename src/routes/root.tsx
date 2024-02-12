@@ -9,6 +9,7 @@ import { Teams } from "@/pages/Teams";
 import { Panels } from "@/pages/Panels";
 import { Users } from "@/pages/Users";
 import { CustomerDetails } from "@/pages/CustomerDetails";
+import { ProductDetails } from "@/pages/ProductDetails";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
@@ -60,7 +61,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/products/:id",
-				element: <h1>TESTE PRODUTOS</h1>,
+				element: <ProductDetails />,
 			},
 		],
 	},

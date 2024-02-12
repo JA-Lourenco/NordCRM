@@ -108,6 +108,8 @@ export function Layout({ pageName }: LayoutProps) {
 				</div>
 
 				<div className="pt-10">
+					<hr className="mb-5" />
+
 					<Outlet />
 				</div>
 			</main>
