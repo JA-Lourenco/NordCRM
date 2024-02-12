@@ -52,7 +52,7 @@ export function ModalFormLead({ children, lead }: ModalFormLeadProps) {
 			<DialogContent className="">
 				<section className="flex items-center justify-between">
 					<div>
-						<DialogTitle>#{lead.id}</DialogTitle>
+						<DialogTitle># {lead.id}</DialogTitle>
 						<DialogDescription>{lead.owner}</DialogDescription>
 					</div>
 

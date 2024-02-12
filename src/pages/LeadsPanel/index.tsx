@@ -186,7 +186,7 @@ export function LeadsPanel() {
 		return leads.map((lead) => (
 			<Card className="mb-5" key={lead.id}>
 				<CardHeader className="relative">
-					<CardTitle>{lead.id}</CardTitle>
+					<CardTitle># {lead.id}</CardTitle>
 					<CardDescription>{lead.owner}</CardDescription>
 
 					<ModalFormLead lead={lead}>
