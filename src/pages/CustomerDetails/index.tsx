@@ -121,10 +121,7 @@ export function CustomerDetails() {
 					content="Deseja realmente remover este registro?"
 					footer={<RemoveModalFooter />}
 				>
-					<Button
-						type="button"
-						className="h-10 mt-5 col-span-1 bg-red-500 dark:text-white hover:dark:text-black"
-					>
+					<Button type="button" className="h-10 mt-5 col-span-1">
 						<UserX className="mr-2" />
 						Remover
 					</Button>

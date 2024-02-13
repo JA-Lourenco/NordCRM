@@ -9,6 +9,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Separator } from "../ui/separator";
 
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -132,7 +133,7 @@ export function ModalFormLead({ children, lead }: ModalFormLeadProps) {
 					</Button>
 				</form>
 
-				<hr />
+				<Separator />
 
 				<DialogFooter className="flex flex-col gap-3">
 					<Button className="h-10 bg-green-500">

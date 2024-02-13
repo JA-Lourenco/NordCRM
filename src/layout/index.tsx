@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { Separator } from "@/components/ui/separator";
 
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
@@ -108,7 +109,7 @@ export function Layout({ pageName }: LayoutProps) {
 				</div>
 
 				<div className="pt-10">
-					<hr className="mb-5" />
+					<Separator className="mb-5" />
 
 					<Outlet />
 				</div>

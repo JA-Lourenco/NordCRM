@@ -10,6 +10,7 @@ import { Panels } from "@/pages/Panels";
 import { Users } from "@/pages/Users";
 import { CustomerDetails } from "@/pages/CustomerDetails";
 import { ProductDetails } from "@/pages/ProductDetails";
+import { TeamDetails } from "@/pages/TeamDetails";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
@@ -67,7 +68,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/teams",
-		element: <Layout pageName="EQUIPE" />,
+		element: <Layout pageName="EQUIPES" />,
 		children: [
 			{
 				index: true,
@@ -76,7 +77,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/teams/:id",
-				element: <h1>TESTE EQUIPE</h1>,
+				element: <TeamDetails />,
 			},
 		],
 	},
