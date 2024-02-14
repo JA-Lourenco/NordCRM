@@ -11,6 +11,7 @@ import { Users } from "@/pages/Users";
 import { CustomerDetails } from "@/pages/CustomerDetails";
 import { ProductDetails } from "@/pages/ProductDetails";
 import { TeamDetails } from "@/pages/TeamDetails";
+import { PanelDetails } from "@/pages/PanelDetails";
 import { ErrorPage } from "@/pages/ErrorPage";
 
 import { Layout } from "@/layout";
@@ -92,7 +93,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/panels/:id",
-				element: <h1>TESTE EQUIPE</h1>,
+				element: <PanelDetails />,
 			},
 		],
 	},
