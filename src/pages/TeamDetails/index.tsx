@@ -75,7 +75,7 @@ export function TeamDetails() {
 					Cancelar
 				</DialogClose>
 
-				<Button className="h-10 bg-red-500 dark:text-white hover:dark:text-black">
+				<Button variant="destructive" className="h-10">
 					<X className="mr-2" />
 					Remover
 				</Button>

@@ -23,7 +23,7 @@ import {
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CornerDownLeft, Save, UserX } from "lucide-react";
+import { CornerDownLeft, Save, X } from "lucide-react";
 
 const productFormSchema = z.object({
 	name: z.string(),
@@ -73,9 +73,9 @@ export function ProductDetails() {
 					Cancelar
 				</DialogClose>
 
-				<Button className="h-10 col-span-1">
-					<UserX className="mr-2" />
-					Confirmar
+				<Button variant="destructive" className="h-10 col-span-1">
+					<X className="mr-2" />
+					Remover
 				</Button>
 			</div>
 		);
@@ -137,13 +137,17 @@ export function ProductDetails() {
 					content="Deseja realmente remover este registro?"
 					footer={<RemoveModalFooter />}
 				>
-					<Button type="button" className="h-10 mt-5 col-span-1">
-						<UserX className="mr-2" />
+					<Button
+						type="button"
+						variant="outline"
+						className="h-10 mt-5 col-span-1"
+					>
+						<X className="mr-2" />
 						Remover
 					</Button>
 				</Modal>
 
-				<Button type="submit" className="h-10 mt-5 col-span-1">
+				<Button type="submit" className="h-10 mt-5 col-span-1 bg-green-500">
 					<Save className="mr-2" />
 					Salvar
 				</Button>

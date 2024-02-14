@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,23 +24,39 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CornerDownLeft, Save, UserX } from "lucide-react";
 
-const customerFormSchema = z.object({
-	fullname: z.string(),
-	personType: z.string(),
-	cpfcnpj: z.string(),
-	phone: z.string(),
+const userFormSchema = z.object({
+	username: z.string(),
 	email: z.string(),
-	birthDate: z.date(),
+	role: z.string(),
+	password: z.string(),
+	confirm_pwd: z.string(),
 });
 
-type CustomerType = z.infer<typeof customerFormSchema>;
+type UserType = z.infer<typeof userFormSchema>;
 
-export function CustomerDetails() {
-	const form = useForm<CustomerType>();
+export function UserDetails() {
+	const [user, setUser] = useState({
+		id: 1,
+		name: "Leanne Graham",
+		username: "Bret",
+		email: "sincere@april.biz",
+	});
+	const [roles, setRoles] = useState([
+		{
+			id: "1",
+			name: "Administrador",
+		},
+		{
+			id: "2",
+			name: "Regular",
+		},
+	]);
+
+	const form = useForm<UserType>();
 	const { register, handleSubmit } = form;
 
-	function submit(data: CustomerType) {
-		console.log("customer", data);
+	function submit(data: UserType) {
+		console.log("product", data);
 	}
 
 	function RemoveModalFooter() {
@@ -63,57 +81,51 @@ export function CustomerDetails() {
 				onSubmit={handleSubmit(submit)}
 				className="grid grid-cols-2 grid-rows-3 gap-5 w-2/6"
 			>
-				<div className="col-span-2">
-					<Label htmlFor="fullname">Nome Completo</Label>
-					<Input id="fullname" type="text" {...register("fullname")} />
-				</div>
-
 				<div className="col-span-1">
-					<FormField
-						control={form.control}
-						name="personType"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Tipo Pessoa</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Selecione" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										<SelectItem value="PF">Pessoa Física</SelectItem>
-										<SelectItem value="PJ">Pessoa Jurídica</SelectItem>
-									</SelectContent>
-								</Select>
-							</FormItem>
-						)}
-					/>
+					<Label htmlFor="name">Usuário</Label>
+					<Input id="name" type="text" {...register("username")} />
 				</div>
 
-				<div className="col-span-1">
-					<Label htmlFor="phone">CPF/CNPJ</Label>
-					<Input id="cpfcnpj" type="text" {...register("cpfcnpj")} />
-				</div>
+				<FormField
+					control={form.control}
+					name="role"
+					render={({ field }) => (
+						<FormItem className="col-span-1">
+							<FormLabel>Perfil</FormLabel>
+							<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<FormControl>
+									<SelectTrigger>
+										<SelectValue placeholder="Selecione" />
+									</SelectTrigger>
+								</FormControl>
 
-				<div className="col-span-1">
-					<Label htmlFor="email">Data de Nascimento</Label>
-					<Input id="birthDate" type="date" {...register("birthDate")} />
-				</div>
-
-				<div className="col-span-1" />
-
-				<div className="col-span-1">
-					<Label htmlFor="phone">Telefone</Label>
-					<Input id="phone" type="text" {...register("phone")} />
-				</div>
+								<SelectContent>
+									{roles.map(({ id, name }) => (
+										<SelectItem key={id} value={name}>
+											{name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						</FormItem>
+					)}
+				/>
 
 				<div className="col-span-1">
 					<Label htmlFor="email">E-mail</Label>
 					<Input id="email" type="text" {...register("email")} />
+				</div>
+
+				<div className="col-span-1"></div>
+
+				<div className="col-span-1">
+					<Label htmlFor="password">Senha</Label>
+					<Input id="password" {...register("password")} />
+				</div>
+
+				<div className="col-span-1">
+					<Label htmlFor="confirm_pwd">Confirmar Senha</Label>
+					<Input id="confirm_pwd" {...register("confirm_pwd")} />
 				</div>
 
 				<Modal
