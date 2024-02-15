@@ -93,42 +93,17 @@ export function ProductDetails() {
 				</div>
 
 				<div className="col-span-1">
-					<FormField
-						control={form.control}
-						name="category"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Categoria</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Selecione" />
-										</SelectTrigger>
-									</FormControl>
-
-									<SelectContent>
-										{products.map(({ id, name }) => (
-											<SelectItem key={id} value={name}>
-												{name}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</FormItem>
-						)}
-					/>
+					<Label htmlFor="category">Categoria</Label>
+					<Input id="category" type="text" {...register("category")} />
 				</div>
 
 				<div className="col-span-2">
-					<Label htmlFor="phone">Fornecedor</Label>
+					<Label htmlFor="supplier">Fornecedor</Label>
 					<Input id="supplier" type="text" {...register("supplier")} />
 				</div>
 
 				<div className="col-span-2">
-					<Label htmlFor="email">Descrição</Label>
+					<Label htmlFor="description">Descrição</Label>
 					<Textarea id="description" {...register("description")} />
 				</div>
 

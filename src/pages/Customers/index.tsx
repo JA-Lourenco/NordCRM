@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
 	Table,
 	TableBody,
@@ -10,8 +12,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { Pencil, Plus, Search } from "lucide-react";
+import { api } from "@/services/api";
+
+import { useNavigate } from "react-router-dom";
 
 export function Customers() {
+	const navigate = useNavigate();
+	async function getCustomer() {
+		try {
+			const { data } = await api.get("/customer");
+			console.log(data);
+		} catch (e) {
+			console.log("getCustomer Error: ", e);
+			alert("Erro ao buscar Clientes!");
+		}
+	}
+
+	function handleCreateCustomer() {
+		navigate("/customers/create");
+	}
+
+	useEffect(() => {
+		getCustomer();
+	}, []);
+
 	return (
 		<>
 			<section className="flex items-center justify-between mb-5">
@@ -23,7 +47,7 @@ export function Customers() {
 					</Button>
 				</div>
 
-				<Button>
+				<Button onClick={() => handleCreateCustomer()}>
 					<Plus /> Adicionar
 				</Button>
 			</section>
