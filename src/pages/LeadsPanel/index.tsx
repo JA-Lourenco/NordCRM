@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -10,12 +12,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import {
 	Card,
 	CardContent,
 	CardDescription,
@@ -26,7 +22,6 @@ import {
 import { ModalFormLead } from "@/components/ModalFormLead";
 
 import { ExternalLink, Plus, Smartphone, User } from "lucide-react";
-import { useState } from "react";
 
 export interface LeadProps {
 	id: string;
@@ -212,17 +207,11 @@ export function LeadsPanel() {
 	return (
 		<>
 			<section className="flex items-center gap-x-5">
-				<Dialog>
-					<DialogTrigger asChild>
-						<Button>
-							<Plus className="mr-2" /> Adicionar
-						</Button>
-					</DialogTrigger>
-
-					<DialogContent>
-						<DialogTitle>Nova Lead</DialogTitle>
-					</DialogContent>
-				</Dialog>
+				<ModalFormLead create>
+					<Button>
+						<Plus className="mr-2" /> Adicionar
+					</Button>
+				</ModalFormLead>
 
 				<PanelSelect />
 			</section>

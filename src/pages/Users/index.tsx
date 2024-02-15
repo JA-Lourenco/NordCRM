@@ -33,7 +33,7 @@ export function Users() {
 				<TableHeader>
 					<TableRow>
 						<TableHead>Usuário</TableHead>
-						<TableHead>Nome</TableHead>
+						<TableHead>E-mail</TableHead>
 						<TableHead>Editar</TableHead>
 					</TableRow>
 				</TableHeader>
@@ -41,7 +41,7 @@ export function Users() {
 				<TableBody>
 					<TableRow>
 						<TableCell>raul.osorio</TableCell>
-						<TableCell>Raul Osório</TableCell>
+						<TableCell>raul.osorio@nord.com</TableCell>
 						<TableCell>
 							<Button>
 								<Pencil />
@@ -51,7 +51,7 @@ export function Users() {
 
 					<TableRow>
 						<TableCell>tallis.marques</TableCell>
-						<TableCell>Tallis Marques</TableCell>
+						<TableCell>tallis.marques@nord.com</TableCell>
 						<TableCell>
 							<Button>
 								<Pencil />
