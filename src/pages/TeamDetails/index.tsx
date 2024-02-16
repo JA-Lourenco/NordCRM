@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "@/services/api";
+import { UsersProps } from "@/pages/Users";
 
 import {
 	CornerDownLeft,
@@ -27,7 +28,7 @@ const teamFormSchema = z.object({
 type TeamType = z.infer<typeof teamFormSchema>;
 
 export function TeamDetails() {
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState<UsersProps[]>([]);
 	const [members, setMembers] = useState([]);
 
 	const form = useForm<TeamType>();
@@ -39,14 +40,9 @@ export function TeamDetails() {
 
 	async function getUsers() {
 		try {
-			const { data } = await api.get(
-				"https://jsonplaceholder.typicode.com/users"
-			);
+			const { data } = await api.get<UsersProps[]>("/user");
 
-			const newData = data.map((item: any) => {
-				return { ...item, checked: false };
-			});
-			setUsers(newData);
+			setUsers(data);
 		} catch (e) {
 			console.log("getUsers Error: ", e);
 		}
@@ -63,7 +59,7 @@ export function TeamDetails() {
 			});
 			setMembers(newData);
 		} catch (e) {
-			console.log("getUsers Error: ", e);
+			console.log("getMembers Error: ", e);
 		}
 	}
 
@@ -111,12 +107,12 @@ export function TeamDetails() {
 				</div>
 
 				<ScrollArea className="h-52 mt-5">
-					{users.map(({ id, name }) => (
+					{users.map(({ id, username }) => (
 						<div
 							key={id}
 							className="flex items-center justify-between gap-3 mt-5 pr-5"
 						>
-							<p>{name}</p>
+							<p>{username}</p>
 							<Button variant="outline">
 								<UserPlus />
 							</Button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,41 +22,85 @@ import {
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useParams } from "react-router-dom";
+import { api, userApi } from "@/services/api";
+
 import { CornerDownLeft, Save, UserX } from "lucide-react";
+import { AxiosError } from "axios";
 
 const userFormSchema = z.object({
 	username: z.string(),
 	email: z.string(),
-	role: z.string(),
+	roles: z.string(),
 	password: z.string(),
-	confirm_pwd: z.string(),
 });
 
 type UserType = z.infer<typeof userFormSchema>;
 
 export function UserDetails() {
-	const [user, setUser] = useState({
-		id: 1,
-		name: "Leanne Graham",
-		username: "Bret",
-		email: "sincere@april.biz",
-	});
+	const [user, setUser] = useState([]);
 	const [roles, setRoles] = useState([
 		{
 			id: "1",
-			name: "Administrador",
+			name: "Gerente",
+			value: "ADMIN",
 		},
 		{
 			id: "2",
-			name: "Regular",
+			name: "Analista",
+			value: "USER",
 		},
 	]);
 
 	const form = useForm<UserType>();
 	const { register, handleSubmit } = form;
+	const { id } = useParams();
 
-	function submit(data: UserType) {
-		console.log("product", data);
+	console.log(id);
+
+	async function postUser(body: UserType) {
+		try {
+			console.log("body req user", body);
+			const { data } = await userApi.post<UserType>("/user", body);
+
+			console.log("Usuário criado com sucesso!", data);
+			form.reset();
+		} catch (e: any | AxiosError) {
+			console.log("postUser Error: ", e.message);
+			alert("Erro ao criar Usuário!");
+		}
+	}
+
+	async function putUser(body: UserType) {
+		try {
+			const { data } = await api.put<UserType>(`/user${id}`, body);
+
+			console.log("Usuário atualizado com sucesso!", data);
+		} catch (e) {
+			console.log("putUser Error: ", e);
+			alert("Erro ao atualizar Usuário!");
+		}
+	}
+
+	async function deleteUser() {
+		try {
+			const { data } = await api.delete(`/user/${id}`);
+			console.log("Usuário removido com sucesso!", data);
+		} catch (e) {
+			console.log("deleteUser Error: ", e);
+			alert("Erro ao remover Usuário!");
+		}
+	}
+
+	async function getUserById() {
+		try {
+			const { data } = await api.get(`/user/${id}`);
+			console.log("user by id", data);
+			setUser(data);
+		} catch (e) {
+			console.log("getUserById Error: ", e);
+			alert("Erro ao buscar Usuário!");
+		}
 	}
 
 	function RemoveModalFooter() {
@@ -67,7 +111,11 @@ export function UserDetails() {
 					Cancelar
 				</DialogClose>
 
-				<Button variant="destructive" className="h-10 col-span-1">
+				<Button
+					variant="destructive"
+					className="h-10 col-span-1"
+					onClick={() => deleteUser()}
+				>
 					<UserX className="mr-2" />
 					Remover
 				</Button>
@@ -75,10 +123,16 @@ export function UserDetails() {
 		);
 	}
 
+	useEffect(() => {
+		if (id !== "create") {
+			getUserById();
+		}
+	}, []);
+
 	return (
 		<Form {...form}>
 			<form
-				onSubmit={handleSubmit(submit)}
+				onSubmit={handleSubmit(id === "create" ? postUser : putUser)}
 				className="grid grid-cols-2 grid-rows-3 gap-5 w-2/6"
 			>
 				<div className="col-span-1">
@@ -88,7 +142,7 @@ export function UserDetails() {
 
 				<FormField
 					control={form.control}
-					name="role"
+					name="roles"
 					render={({ field }) => (
 						<FormItem className="col-span-1">
 							<FormLabel>Perfil</FormLabel>
@@ -100,8 +154,8 @@ export function UserDetails() {
 								</FormControl>
 
 								<SelectContent>
-									{roles.map(({ id, name }) => (
-										<SelectItem key={id} value={name}>
+									{roles.map(({ id, name, value }) => (
+										<SelectItem key={id} value={value}>
 											{name}
 										</SelectItem>
 									))}
@@ -120,13 +174,10 @@ export function UserDetails() {
 
 				<div className="col-span-1">
 					<Label htmlFor="password">Senha</Label>
-					<Input id="password" {...register("password")} />
+					<Input id="password" type="password" {...register("password")} />
 				</div>
 
-				<div className="col-span-1">
-					<Label htmlFor="confirm_pwd">Confirmar Senha</Label>
-					<Input id="confirm_pwd" {...register("confirm_pwd")} />
-				</div>
+				<div className="col-span-1"></div>
 
 				<Modal
 					title="ATENÇÃO"

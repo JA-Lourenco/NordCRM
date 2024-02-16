@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,17 +13,13 @@ import {
 	FormItem,
 	FormLabel,
 } from "@/components/ui/form";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CornerDownLeft, Save, X } from "lucide-react";
+import { api } from "@/services/api";
+import { AxiosError } from "axios";
+import { useParams } from "react-router-dom";
 
 const productFormSchema = z.object({
 	name: z.string(),
@@ -35,34 +31,55 @@ const productFormSchema = z.object({
 type ProductType = z.infer<typeof productFormSchema>;
 
 export function ProductDetails() {
-	const [products, setProducts] = useState([
-		{
-			id: "1",
-			name: "Lab Equipment A",
-			supplier: "Supplier X",
-			description: "High precision lab equipment for various experiments.",
-			category: "Equipment",
-		},
-		{
-			id: "2",
-			name: "Lab Chemical B",
-			supplier: "Supplier Y",
-			description: "Chemical reagent for laboratory use.",
-			category: "Chemical",
-		},
-		{
-			id: "3",
-			name: "Lab Glassware C",
-			supplier: "Supplier Z",
-			description: "Various glassware items for laboratory experiments.",
-			category: "Glassware",
-		},
-	]);
+	const [product, setProduct] = useState({});
+
 	const form = useForm<ProductType>();
 	const { register, handleSubmit } = form;
+	const { id } = useParams();
 
-	function submit(data: ProductType) {
-		console.log("product", data);
+	async function postProduct(body: ProductType) {
+		try {
+			console.log("body req user", body);
+			const { data } = await api.post<ProductType[]>("/product", body);
+
+			console.log("Produto criado com sucesso!", data);
+			form.reset();
+		} catch (e: any | AxiosError) {
+			console.log("postProduct Error: ", e.message);
+			alert("Erro ao criar Produto!");
+		}
+	}
+
+	async function putProduct(body: ProductType) {
+		try {
+			const { data } = await api.put<ProductType>(`/product${id}`, body);
+
+			console.log("Produto atualizado com sucesso!", data);
+		} catch (e) {
+			console.log("putProduct Error: ", e);
+			alert("Erro ao atualizar Produto!");
+		}
+	}
+
+	async function deleteProduct() {
+		try {
+			const { data } = await api.delete(`/product/${id}`);
+			console.log("Produto removido com sucesso!", data);
+		} catch (e) {
+			console.log("deleteProduct Error: ", e);
+			alert("Erro ao remover Produto!");
+		}
+	}
+
+	async function getProductById() {
+		try {
+			const { data } = await api.get(`/product/${id}`);
+			console.log("Product by id", data);
+			setProduct(data);
+		} catch (e) {
+			console.log("getProductById Error: ", e);
+			alert("Erro ao buscar Produto!");
+		}
 	}
 
 	function RemoveModalFooter() {
@@ -73,7 +90,11 @@ export function ProductDetails() {
 					Cancelar
 				</DialogClose>
 
-				<Button variant="destructive" className="h-10 col-span-1">
+				<Button
+					variant="destructive"
+					className="h-10 col-span-1"
+					onClick={() => deleteProduct()}
+				>
 					<X className="mr-2" />
 					Remover
 				</Button>
@@ -81,10 +102,16 @@ export function ProductDetails() {
 		);
 	}
 
+	useEffect(() => {
+		if (id !== "create") {
+			getProductById();
+		}
+	}, []);
+
 	return (
 		<Form {...form}>
 			<form
-				onSubmit={handleSubmit(submit)}
+				onSubmit={handleSubmit(id === "create" ? postProduct : putProduct)}
 				className="grid grid-cols-2 grid-rows-3 gap-5 w-2/6"
 			>
 				<div className="col-span-2">

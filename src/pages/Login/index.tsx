@@ -6,6 +6,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { login } from "@/services/api";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 interface AuthProps {
 	token: string;
@@ -21,8 +22,15 @@ type LoginType = z.infer<typeof loginSchema>;
 export function Login() {
 	const form = useForm<LoginType>();
 	const { register, handleSubmit } = form;
+	const navigate = useNavigate();
 
 	function setAuthToken({ token }: AuthProps) {
+		const isAuth = localStorage.getItem("authToken") || "";
+
+		if (isAuth) {
+			localStorage.removeItem("authToken");
+		}
+
 		localStorage.setItem("authToken", token);
 	}
 
@@ -33,8 +41,12 @@ export function Login() {
 				"/auth/login",
 				params
 			);
+
 			console.log(token);
-			setAuthToken(token);
+			if (token) {
+				setAuthToken(token);
+				navigate("/home");
+			}
 		} catch (e) {
 			console.log("authenticate Error: ", e);
 		}

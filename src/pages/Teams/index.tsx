@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
 	Table,
 	TableBody,
@@ -7,12 +9,34 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { api } from "@/services/api";
 
 import { Pencil, Plus, Search } from "lucide-react";
 
 export function Teams() {
+	const [teams, setTeams] = useState([]);
+	const navigate = useNavigate();
+
+	function handleAddTeam() {
+		navigate("/teams/create");
+	}
+
+	async function getTeams() {
+		try {
+			const { data } = await api.get("/team");
+			console.log("Team", data);
+			setTeams(data);
+		} catch (e) {
+			console.log("getTeams Error: ", e);
+			alert("Erro ao carregar Equipes!");
+		}
+	}
+
+	useEffect(() => {
+		getTeams();
+	}, []);
 	return (
 		<>
 			<section className="flex items-center justify-between mb-5">
@@ -24,7 +48,7 @@ export function Teams() {
 					</Button>
 				</div>
 
-				<Button>
+				<Button onClick={() => handleAddTeam()}>
 					<Plus /> Adicionar
 				</Button>
 			</section>

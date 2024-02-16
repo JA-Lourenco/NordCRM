@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
 	Table,
@@ -15,16 +15,31 @@ import { Pencil, Plus, Search } from "lucide-react";
 import { api } from "@/services/api";
 
 import { useNavigate } from "react-router-dom";
+import { Loading } from "@/components/Loading";
+
+interface CustomerProps {
+	id: number;
+	fullName: string;
+	phone: string;
+}
 
 export function Customers() {
+	const [isLoading, setIsLoading] = useState(false);
+	const [customers, setCustomers] = useState<CustomerProps[]>([]);
+
 	const navigate = useNavigate();
+
 	async function getCustomer() {
 		try {
-			const { data } = await api.get("/customer");
+			setIsLoading(true);
+			const { data } = await api.get<CustomerProps[]>("/customer");
 			console.log(data);
+			setCustomers(data);
 		} catch (e) {
 			console.log("getCustomer Error: ", e);
 			alert("Erro ao buscar Clientes!");
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
@@ -38,54 +53,57 @@ export function Customers() {
 
 	return (
 		<>
-			<section className="flex items-center justify-between mb-5">
-				<div className="flex items-center">
-					<Input type="text" placeholder="Pesquisar..." className="w-52 mr-2" />
-
-					<Button>
-						<Search />
-					</Button>
+			{isLoading ? (
+				<div className="flex items-center justify-center">
+					<Loading />
 				</div>
+			) : (
+				<>
+					<section className="flex items-center justify-between mb-5">
+						<div className="flex items-center">
+							<Input
+								type="text"
+								placeholder="Pesquisar..."
+								className="w-52 mr-2"
+							/>
 
-				<Button onClick={() => handleCreateCustomer()}>
-					<Plus /> Adicionar
-				</Button>
-			</section>
-
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead>Nome</TableHead>
-						<TableHead>Telefone</TableHead>
-						<TableHead>Tipo Pessoa</TableHead>
-						<TableHead>Editar</TableHead>
-					</TableRow>
-				</TableHeader>
-
-				<TableBody>
-					<TableRow>
-						<TableCell>Ricardo Oliveira</TableCell>
-						<TableCell>38 985258525</TableCell>
-						<TableCell>PF</TableCell>
-						<TableCell>
 							<Button>
-								<Pencil />
+								<Search />
 							</Button>
-						</TableCell>
-					</TableRow>
+						</div>
 
-					<TableRow>
-						<TableCell>Victor Ramos</TableCell>
-						<TableCell>12 996539653</TableCell>
-						<TableCell>PF</TableCell>
-						<TableCell>
-							<Button>
-								<Pencil />
-							</Button>
-						</TableCell>
-					</TableRow>
-				</TableBody>
-			</Table>
+						<Button onClick={() => handleCreateCustomer()}>
+							<Plus /> Adicionar
+						</Button>
+					</section>
+
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Nome</TableHead>
+								<TableHead>Telefone</TableHead>
+								<TableHead>Tipo Pessoa</TableHead>
+								<TableHead>Editar</TableHead>
+							</TableRow>
+						</TableHeader>
+
+						<TableBody>
+							{customers.map(({ id, phone, fullName }) => (
+								<TableRow key={id}>
+									<TableCell>{fullName}</TableCell>
+									<TableCell>{phone}</TableCell>
+									<TableCell>PF</TableCell>
+									<TableCell>
+										<Button>
+											<Pencil />
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</>
+			)}
 		</>
 	);
 }
