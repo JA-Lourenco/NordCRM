@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/services/api";
+import { toast } from "sonner";
 
 import { Pencil, Plus, Search } from "lucide-react";
 
@@ -30,7 +31,7 @@ export function Teams() {
 			setTeams(data);
 		} catch (e) {
 			console.log("getTeams Error: ", e);
-			alert("Erro ao carregar Equipes!");
+			toast.error("Erro ao carregar Equipes!");
 		}
 	}
 

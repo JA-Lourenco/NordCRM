@@ -24,9 +24,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useParams } from "react-router-dom";
 import { api, userApi } from "@/services/api";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 import { CornerDownLeft, Save, UserX } from "lucide-react";
-import { AxiosError } from "axios";
 
 const userFormSchema = z.object({
 	username: z.string(),
@@ -67,7 +68,7 @@ export function UserDetails() {
 			form.reset();
 		} catch (e: any | AxiosError) {
 			console.log("postUser Error: ", e.message);
-			alert("Erro ao criar Usuário!");
+			toast.error("Erro ao criar Usuário!");
 		}
 	}
 
@@ -78,7 +79,7 @@ export function UserDetails() {
 			console.log("Usuário atualizado com sucesso!", data);
 		} catch (e) {
 			console.log("putUser Error: ", e);
-			alert("Erro ao atualizar Usuário!");
+			toast.error("Erro ao atualizar Usuário!");
 		}
 	}
 
@@ -88,7 +89,7 @@ export function UserDetails() {
 			console.log("Usuário removido com sucesso!", data);
 		} catch (e) {
 			console.log("deleteUser Error: ", e);
-			alert("Erro ao remover Usuário!");
+			toast.error("Erro ao remover Usuário!");
 		}
 	}
 
@@ -99,7 +100,7 @@ export function UserDetails() {
 			setUser(data);
 		} catch (e) {
 			console.log("getUserById Error: ", e);
-			alert("Erro ao buscar Usuário!");
+			toast.error("Erro ao buscar Usuário!");
 		}
 	}
 

@@ -10,17 +10,19 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { api } from "@/services/api";
-import { useNavigate } from "react-router-dom";
 import { Loading } from "@/components/Loading";
 
+import { api } from "@/services/api";
+import { useNavigate } from "react-router-dom";
+
 import { Pencil, Plus, Search } from "lucide-react";
+import { toast } from "sonner";
 
 interface PanelProps {}
 
 export function Panels() {
-	const [isLoading, setIsLoading] = useState(false);
 	const [panels, setPanels] = useState<PanelProps[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export function Panels() {
 			setPanels(data);
 		} catch (e) {
 			console.log("getCustomer Error: ", e);
-			alert("Erro ao buscar Painéis!");
+			toast.error("Erro ao buscar Painéis!");
 		} finally {
 			setIsLoading(false);
 		}
@@ -50,7 +52,7 @@ export function Panels() {
 		<>
 			{isLoading ? (
 				<div className="flex items-center justify-center">
-					<Loading />
+					<Loading className="h-16 w-16" />
 				</div>
 			) : (
 				<>

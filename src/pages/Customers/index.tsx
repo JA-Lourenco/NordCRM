@@ -10,34 +10,43 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/Loading";
 
 import { Pencil, Plus, Search } from "lucide-react";
 import { api } from "@/services/api";
 
 import { useNavigate } from "react-router-dom";
-import { Loading } from "@/components/Loading";
+import { toast } from "sonner";
 
 interface CustomerProps {
 	id: number;
 	fullName: string;
 	phone: string;
+	personType: string;
 }
 
 export function Customers() {
-	const [isLoading, setIsLoading] = useState(false);
 	const [customers, setCustomers] = useState<CustomerProps[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const navigate = useNavigate();
 
-	async function getCustomer() {
+	const token = localStorage.getItem("authToken") || "";
+
+	const headers = {
+		Authorization: `Bearer ${token}`,
+	};
+
+	async function getCustomers() {
 		try {
 			setIsLoading(true);
-			const { data } = await api.get<CustomerProps[]>("/customer");
+			const { data } = await api.get<CustomerProps[]>("/customer", { headers });
+
 			console.log(data);
 			setCustomers(data);
 		} catch (e) {
 			console.log("getCustomer Error: ", e);
-			alert("Erro ao buscar Clientes!");
+			toast.error("Erro ao buscar Clientes!");
 		} finally {
 			setIsLoading(false);
 		}
@@ -47,15 +56,19 @@ export function Customers() {
 		navigate("/customers/create");
 	}
 
+	function handleEditCustomer(id: string) {
+		navigate(`/customers/${id}`);
+	}
+
 	useEffect(() => {
-		getCustomer();
+		getCustomers();
 	}, []);
 
 	return (
 		<>
 			{isLoading ? (
 				<div className="flex items-center justify-center">
-					<Loading />
+					<Loading className="h-16 w-16" />
 				</div>
 			) : (
 				<>
@@ -88,13 +101,15 @@ export function Customers() {
 						</TableHeader>
 
 						<TableBody>
-							{customers.map(({ id, phone, fullName }) => (
+							{customers.map(({ id, phone, fullName, personType }) => (
 								<TableRow key={id}>
 									<TableCell>{fullName}</TableCell>
 									<TableCell>{phone}</TableCell>
-									<TableCell>PF</TableCell>
 									<TableCell>
-										<Button>
+										{personType === "NATURAL_PERSON" ? "PF" : "PJ"}
+									</TableCell>
+									<TableCell>
+										<Button onClick={() => handleEditCustomer(id.toString())}>
 											<Pencil />
 										</Button>
 									</TableCell>

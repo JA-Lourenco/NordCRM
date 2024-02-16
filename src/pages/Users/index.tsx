@@ -14,6 +14,7 @@ import { Loading } from "@/components/Loading";
 
 import { useNavigate } from "react-router-dom";
 import { api } from "@/services/api";
+import { toast } from "sonner";
 
 import { Pencil, Plus, Search } from "lucide-react";
 
@@ -45,7 +46,7 @@ export function Users() {
 			setUsers(data);
 		} catch (e) {
 			console.log("getUsers Error: ", e);
-			alert("Erro ao carregar Usuários!");
+			toast.error("Erro ao carregar Usuários!");
 		} finally {
 			setIsLoading(false);
 		}
@@ -59,7 +60,7 @@ export function Users() {
 		<>
 			{isLoading ? (
 				<div className="flex items-center justify-center">
-					<Loading />
+					<Loading className="h-16 w-16" />
 				</div>
 			) : (
 				<>

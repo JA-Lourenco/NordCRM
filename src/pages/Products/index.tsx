@@ -14,6 +14,7 @@ import { Loading } from "@/components/Loading";
 
 import { api } from "@/services/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 import { Pencil, Plus, Search } from "lucide-react";
 
@@ -38,7 +39,7 @@ export function Products() {
 			setProducts(data);
 		} catch (e) {
 			console.log("getCustomer Error: ", e);
-			alert("Erro ao buscar Clientes!");
+			toast.error("Erro ao buscar Clientes!");
 		} finally {
 			setIsLoading(false);
 		}

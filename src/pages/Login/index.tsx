@@ -1,12 +1,17 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { Loading } from "@/components/Loading";
 
 import { login } from "@/services/api";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { LogIn } from "lucide-react";
 
 interface AuthProps {
 	token: string;
@@ -20,6 +25,8 @@ const loginSchema = z.object({
 type LoginType = z.infer<typeof loginSchema>;
 
 export function Login() {
+	const [isLoading, setIsLoading] = useState(false);
+
 	const form = useForm<LoginType>();
 	const { register, handleSubmit } = form;
 	const navigate = useNavigate();
@@ -34,8 +41,15 @@ export function Login() {
 		localStorage.setItem("authToken", token);
 	}
 
+	function setUserLS(username: string) {
+		localStorage.removeItem("username");
+
+		localStorage.setItem("username", username);
+	}
+
 	async function authenticate(params: LoginType) {
 		try {
+			setIsLoading(true);
 			console.log("params", params);
 			const { data: token } = await login.post<AuthProps>(
 				"/auth/login",
@@ -45,10 +59,14 @@ export function Login() {
 			console.log(token);
 			if (token) {
 				setAuthToken(token);
+				setUserLS(params.username);
 				navigate("/home");
 			}
 		} catch (e) {
 			console.log("authenticate Error: ", e);
+			toast.error("Falha ao realizar autenticação!");
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
@@ -70,7 +88,17 @@ export function Login() {
 					<Label htmlFor="password">Senha</Label>
 					<Input id="password" type="password" {...register("password")} />
 
-					<Button variant="default" type="submit" className="w-full h-10 mt-10">
+					<Button
+						variant="default"
+						type="submit"
+						className="w-full h-10 mt-10"
+						disabled={isLoading}
+					>
+						{isLoading ? (
+							<Loading className="mr-2" />
+						) : (
+							<LogIn className="mr-2" />
+						)}
 						Entrar
 					</Button>
 				</form>

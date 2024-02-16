@@ -6,20 +6,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/Modal";
 import { DialogClose } from "@/components/ui/dialog";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CornerDownLeft, Save, X } from "lucide-react";
 import { api } from "@/services/api";
 import { AxiosError } from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
+
+import { CornerDownLeft, Save, X } from "lucide-react";
 
 const productFormSchema = z.object({
 	name: z.string(),
@@ -46,7 +42,7 @@ export function ProductDetails() {
 			form.reset();
 		} catch (e: any | AxiosError) {
 			console.log("postProduct Error: ", e.message);
-			alert("Erro ao criar Produto!");
+			toast.error("Erro ao criar Produto!");
 		}
 	}
 
@@ -57,7 +53,7 @@ export function ProductDetails() {
 			console.log("Produto atualizado com sucesso!", data);
 		} catch (e) {
 			console.log("putProduct Error: ", e);
-			alert("Erro ao atualizar Produto!");
+			toast.error("Erro ao atualizar Produto!");
 		}
 	}
 
@@ -67,7 +63,7 @@ export function ProductDetails() {
 			console.log("Produto removido com sucesso!", data);
 		} catch (e) {
 			console.log("deleteProduct Error: ", e);
-			alert("Erro ao remover Produto!");
+			toast.error("Erro ao remover Produto!");
 		}
 	}
 
@@ -78,7 +74,7 @@ export function ProductDetails() {
 			setProduct(data);
 		} catch (e) {
 			console.log("getProductById Error: ", e);
-			alert("Erro ao buscar Produto!");
+			toast.error("Erro ao buscar Produto!");
 		}
 	}
 
