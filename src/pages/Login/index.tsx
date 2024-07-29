@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Loading } from "@/components/Loading";
 
-import { login } from "@/services/api";
+import { api } from "@/services/api";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -51,9 +51,16 @@ export function Login() {
 		try {
 			setIsLoading(true);
 			console.log("params", params);
-			const { data: token } = await login.post<AuthProps>(
+			const { username, password } = params;
+			const { data: token } = await api.post<AuthProps>(
 				"/auth/login",
-				params
+				{},
+				{
+					auth: {
+						username,
+						password,
+					},
+				}
 			);
 
 			console.log(token);
