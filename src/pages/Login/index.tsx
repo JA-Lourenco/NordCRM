@@ -13,10 +13,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { LogIn } from "lucide-react";
 
-interface AuthProps {
-	token: string;
-}
-
 const loginSchema = z.object({
 	username: z.string(),
 	password: z.string(),
@@ -31,7 +27,7 @@ export function Login() {
 	const { register, handleSubmit } = form;
 	const navigate = useNavigate();
 
-	function setAuthToken({ token }: AuthProps) {
+	function setAuthToken(token: string) {
 		const isAuth = localStorage.getItem("authToken") || "";
 
 		if (isAuth) {
@@ -52,7 +48,7 @@ export function Login() {
 			setIsLoading(true);
 			console.log("params", params);
 			const { username, password } = params;
-			const { data: token } = await api.post<AuthProps>(
+			const { data: token } = await api.post<string>(
 				"/auth/login",
 				{},
 				{
@@ -63,10 +59,9 @@ export function Login() {
 				}
 			);
 
-			console.log(token);
 			if (token) {
 				setAuthToken(token);
-				setUserLS(params.username);
+				setUserLS(username);
 				navigate("/home");
 			}
 		} catch (e) {
