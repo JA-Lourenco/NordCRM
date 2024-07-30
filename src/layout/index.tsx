@@ -63,12 +63,8 @@ export function Layout({ pageName }: LayoutProps) {
 				</h2>
 
 				{menuItems.map(({ name, icon, path }, index) => (
-					<Button variant="ghost">
-						<Link
-							to={path}
-							key={index}
-							className="flex items-center gap-2 w-full"
-						>
+					<Button variant="ghost" key={index}>
+						<Link to={path} className="flex items-center gap-2 w-full">
 							{icon}
 							{isSidebarOpen && name}
 						</Link>
