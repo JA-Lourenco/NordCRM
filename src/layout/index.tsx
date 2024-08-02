@@ -87,11 +87,7 @@ export function Layout({ pageName }: LayoutProps) {
 			<main className="w-full pt-10 pr-10">
 				<div className="w-full flex items-center justify-between">
 					<div className="flex items-center gap-5">
-						<Button
-							variant="ghost"
-							className="w-full"
-							onClick={() => navigate(-1)}
-						>
+						<Button variant="ghost" onClick={() => navigate(-1)}>
 							<ArrowLeft />
 						</Button>
 						<h1 className="text-3xl font-bold">{pageName.toUpperCase()}</h1>
